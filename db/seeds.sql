@@ -5,7 +5,8 @@ VALUES
 (1, "Operations"),
 (2, "Development"),
 (3, "Sales"),
-(4, "Marketing");
+(4, "Marketing"),
+(5, "H.R");
 
 INSERT INTO roles(id, title, salary, department_id)
 VALUES
@@ -15,7 +16,8 @@ VALUES
 (4, "Philosopher", 120000, 2),
 (5, "Service", 25000, 3),
 (6, "Production", 270000, 4),
-(7, "Advertising", 300000, 4);
+(7, "Advertising", 300000, 4),
+(8, "Sales", 45000, 3);
 
 INSERT INTO employee(id, first_name, last_name, role_id, manager_id)
 VALUES
@@ -24,6 +26,6 @@ VALUES
 (3, "Method", "Man", 3, 3),
 (4, "Huey", "Freeman", 4, 1),
 (5, "Homer", "Simpson", 5, 2),
-(6, "Sarah", "Connor", 6, 3),
+(6, "Sarah", "Connor", 6, 1),
 (7, "Chris", "Farley", 7, 2),
-(8, "Lloyd", "Christmas", 3, 3);
+(8, "Lloyd", "Christmas", 8, 1);

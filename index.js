@@ -71,12 +71,11 @@ const addDepartment = async () => {
     {
       type: "input",
       name: "name",
-      message: "What is the department name?",
+      message: "What's the department's name?",
       validate: validateInput,
     },
   ]);
-  // console.log("answer", answer);
-  // console.log("answer.name", answer.name);
+
   const departmentName = answer.name;
   db.addADepartment(departmentName).then(() => {
     db.findAllDepartments().then(([rows]) => {
@@ -87,16 +86,15 @@ const addDepartment = async () => {
 };
 
 const addRole = async () => {
-  // same as .then() above, gives us a Tuple
   const [rows] = await db.findAllDepartments();
   console.table(rows);
   const departmentChoices = rows.map(({ name, id }) => ({ name, value: id }));
-  // console.log(departmentChoices);
+
   const answer = await inquirer.prompt([
     {
       type: "input",
       name: "name",
-      message: "What is the role title?",
+      message: "What is the title for this role?",
       validate: validateInput,
     },
     {
@@ -108,12 +106,10 @@ const addRole = async () => {
     {
       type: "list",
       name: "department",
-      message: "Which department does this role belong to?",
+      message: "Which department for this role?",
       choices: departmentChoices,
     },
   ]);
-  // console.log("answer", answer);
-  // console.log("answer.name", answer.name);
 
   db.addARole(answer.name, answer.salary, answer.department).then(() => {
     db.findAllRoles().then(([rows]) => {
@@ -136,7 +132,6 @@ const addEmployee = async () => {
   }));
   console.log(roleChoices);
 
-  //   immutability
   const [rowsB] = await db.findAllEmployees();
   const employeeChoices = rowsB.map(mapEmployeeChoices);
   console.log(employeeChoices);

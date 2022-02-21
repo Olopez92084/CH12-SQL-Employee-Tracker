@@ -1,6 +1,4 @@
 const connection = require("./connection");
-
-// DB commands, ORM
 class db {
   constructor(connection) {
     this.connection = connection;
@@ -55,14 +53,11 @@ addADepartment(departmentName) {
   }  
   findAllManagers(employeeId) {
       return this.connection.promise().query("SELECT * FROM employee WHERE id != ?", [employeeId]);
-  }
-//   not a left join? join on employee itself??
+    }
   findByManager(managerId) {
     return this.connection.promise().query(`SELECT employee.id, employee.manager_id, CONCAT(employee.first_name, ' ' , employee.last_name) AS name FROM employee LEFT JOIN roles on employee.role_id = roles.id WHERE manager_id = ?`, [managerId]);
   }
-
   findByDepartment(departmentId) {
-      console.log("depId: ", departmentId)
     return this.connection.promise().query(`SELECT CONCAT(employee.first_name, ' ' , employee.last_name) AS name, department.name AS department
     FROM employee LEFT JOIN roles on employee.role_id = roles.id LEFT JOIN department on roles.department_id = department.id
     WHERE department.id = ?`, [departmentId]);
@@ -71,10 +66,9 @@ addADepartment(departmentName) {
     return this.connection.promise().query("DELETE FROM department WHERE id = ?", [departmentId]);
   }
   deleteARole(roleId) {
-    console.log("roleId: ", roleId)
+    
     return this.connection.promise().query("DELETE FROM roles WHERE id = ?", [roleId]); 
   }
-
   deleteAnEmployee(employeeId) {
     return this.connection.promise().query("DELETE FROM employee WHERE id = ?", [employeeId]);
   }
@@ -82,5 +76,4 @@ addADepartment(departmentName) {
     return this.connection.promise().query("SELECT department.name AS department, department.id, SUM(salary) AS total_salary FROM employee LEFT JOIN roles on employee.role_id = roles.id LEFT JOIN department on roles.department_id = department.id GROUP BY department.id");
   }
 }
-
 module.exports = new db(connection);
